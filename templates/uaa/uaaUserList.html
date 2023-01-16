@@ -1,0 +1,337 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Main content -->
+<br />
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <section class="#">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-10">
+              <p>System Users</p>
+            </div>
+
+            {% comment %} {% if perms.uaa.delete_user %} {% endcomment %}
+            <div class="col-sm-2">
+              <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a>
+            </div>
+            {% comment %} {% endif %} {% endcomment %}
+
+          </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Rendering engine</th>
+          <th>Browser</th>
+          <th>Platform(s)</th>
+          <th>Engine version</th>
+          <th>CSS grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Trident</td>
+          <td>Internet
+            Explorer 5.0
+          </td>
+          <td>Win 95+</td>
+          <td>5</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td>Other browsers</td>
+          <td>All others</td>
+          <td>-</td>
+          <td>-</td>
+          <td>U</td>
+        </tr>
+
+        
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Rendering engine</th>
+          <th>Browser</th>
+          <th>Platform(s)</th>
+          <th>Engine version</th>
+          <th>CSS grade</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+<div class="modal fade" id="modal-primary">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Create a new user.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                  <input type="text" name="Username" class="form-control" placeholder="Username" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="email" name="Email" class="form-control" placeholder="Email" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="password" name="Password" class="form-control" placeholder="Password" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="password" name="ConfirmPassword" class="form-control" placeholder="Retype password" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <select name="RoleId" class="form-control">
+                        {% for roleInstance in roleInstanceData %}
+                        <option value="{{ roleInstance.id }}">{{ roleInstance.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-list"></span>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+{% endblock content %}
