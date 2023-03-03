@@ -35,7 +35,7 @@ EMAIL_HOST_PASSWORD = 'nutpfjfrskqptyny'  #password for allowed for two-factor a
 EMAIL_USE_TLS = True   #for Gmail account.
 # EMAIL_USE_SSL = False,   for secured connection.
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  #3.91.71.75
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 

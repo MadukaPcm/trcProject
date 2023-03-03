@@ -105,7 +105,8 @@ def RegisterView(request):
 #A function for sending email for verification.
 def SendEmailRegister(email, token):
     subject = 'Your accounts needs to be verified'
-    message = f'Hi verify your account 127.0.0.1:8000/verify/{token}'
+    message = f'Hi verify your account 3.91.71.75/verify/{token}'
+    # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message,email_from,recipient_list)
@@ -158,7 +159,8 @@ def ResetPasswordView(request):
 
 def SendEmailPasswordResetView(email):
     subject = 'password reset, click the link below'
-    message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}'
+    message = f'Hi verify your account 3.91.71.75/RecoverPassword/{email}'
+    # message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}' #for local host
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message,email_from,recipient_list)
