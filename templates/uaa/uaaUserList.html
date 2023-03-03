@@ -1,29 +1,31 @@
 {% extends 'base/main.html' %}
 {% block content %}
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-8">
+        <h1>Users</h1>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>System users</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
 <!-- Main content -->
-<br />
 <section class="content margtop">
 <div class="container-fluid">
 
 <div class="card" style="background:#343a40;">
-    <section class="#">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-10">
-              <p>System Users</p>
-            </div>
-
-            {% comment %} {% if perms.uaa.delete_user %} {% endcomment %}
-            <div class="col-sm-2">
-              <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a>
-            </div>
-            {% comment %} {% endif %} {% endcomment %}
-
-          </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-sm table-bordered table-striped">

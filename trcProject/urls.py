@@ -27,7 +27,12 @@ urlpatterns = [
     
     path('trcAdmin/', admin.site.urls),
     path('',include('uaa.urls')),
+    path('asset/', include('asset.urls')),
     path('inventory/', include('inventory.urls')),
     path('maintenanceReport/', include('maintenanceReport.urls')),
     path('workOrder/', include('workOrder.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

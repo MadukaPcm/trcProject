@@ -31,7 +31,6 @@ def LoginView(request):
             if user is not None and user.is_active:
                 login(request,user)
                 # messages.success(request, 'Your are now logged in !!')
-                
                 return redirect('dashboard_url')
     
             else:
@@ -39,7 +38,7 @@ def LoginView(request):
                 return redirect('login_url')
                 
     except Exception as e:
-        raise e
+        print(e)
     
     context = {}
     return render(request,"login.html")
@@ -152,7 +151,7 @@ def ResetPasswordView(request):
             return redirect('login_url')
         
     except Exception as e:
-        raise e
+        print(e)
     
     context = {}
     return render(request,"uaa/resetpassword.html")

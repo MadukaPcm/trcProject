@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
     'maintenanceReport.apps.MaintenancereportConfig',
     'workOrder.apps.WorkorderConfig',
+    'asset.apps.AssetConfig',
 ]
 
 AUTH_USER_MODEL = 'uaa.User'

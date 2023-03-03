@@ -1,5 +1,5 @@
 from django.db import models
-from uaa.models import User,Branch 
+from uaa.models import User
 from workOrder.models import MaintenanceSchedule
 from django.core.validators import FileExtensionValidator
 import uuid
@@ -7,11 +7,13 @@ import uuid
 
 class MaintenanceReport(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
-    branch = models.ForeignKey(Branch, related_name='branch_maintenanceSchedule',on_delete=models.DO_NOTHING)
-    jobDescription = models.TextField()
+    MaintenanceSchedule = models.ForeignKey(MaintenanceSchedule, 
+                                            related_name="maintenanceSchedule_maitenaceR", on_delete=models.DO_NOTHING)
+    mrNumber = models.CharField(max_length=100, null=True, blank=True)   #this should automatically be filled
+    jobDescription = models.TextField() 
     completionDate = models.DateField()
     isCompleted = models.BooleanField(default=False)
-    other = models.CharField(max_length=100,null=True,blank=False)
+    isVerified = models.BooleanField(default=False)
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_maintenanceReport",blank=True,null=True)
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_maintenanceReprt",blank=True,null=True)
@@ -23,4 +25,4 @@ class MaintenanceReport(models.Model):
         ordering =['-createdAt','-updatedAt']
     
     def __str__(self):    #the report is only created when order was confirmed.
-        return str(self.maxTradeNumber)
+        return str(self.mrNumber)
