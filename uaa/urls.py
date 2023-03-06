@@ -10,6 +10,7 @@ urlpatterns = [
     
     path('dashboard/', views.DashboardView, name='dashboard_url'),
     path('profile/', views.ProfileView, name='profile_url'),
+    path('updateProfile', views.UpdateProfileView, name='updateProfile_url'),
     
     path('success/', views.SuccessView, name='success_url'),
     path('tokensend/', views.TokenSendView, name='tokensend_url'),
@@ -18,6 +19,9 @@ urlpatterns = [
     
     path('uaaUserList/', views.UaaUserListView, name='uaaUserList_url'),
     path('createUser/', views.CreateUserView, name='createUser_url'),
+    path('updateUser/', views.UpdateUserView, name='updateUser_url'),
+    path('userStatusView/', views.UserStatusView, name='userStatusView_url'),
+    path('approveUser/', views.ApproveUserView, name='approveUser_url'),
     
     path('logout/',views.LogoutView, name='logout_url'),
 ]

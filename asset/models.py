@@ -1,15 +1,17 @@
 from django.db import models
 from uaa.models import User
+from uaa.models import Department
 from django.core.validators import FileExtensionValidator
 import uuid
 
 # Create your models here. 
 class Station(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_station', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     stationName = models.CharField(max_length=100,blank=True,null=True)
     stationNumber = models.CharField(max_length=100,blank=True,null=True)
     regionName = models.CharField(max_length=100,blank=True,null=True)
-    yearBuilt = models.DateField()
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_stations")
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_station")
@@ -25,12 +27,13 @@ class Station(models.Model):
     
 class Office(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_office', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     station = models.ForeignKey(Station, related_name='station_office',on_delete=models.DO_NOTHING)
     
     officeName = models.CharField(max_length=100,blank=True,null=True)
     OfficeNumber = models.CharField(max_length=100,blank=True,null=True)
     yearBuilt = models.DateField()
-    isStandard = models.BooleanField(default=False)
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_office")
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_offce")
@@ -47,8 +50,9 @@ class Office(models.Model):
     
 class CategoryTwo(models.Model): #[ air conditioner, plumbing, tv-dstv ]
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_categoryTwo', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     name = models.CharField(max_length=100,blank=True,null=True)
-    description = models.TextField(max_length=255,blank=True,null=True)
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_categoryTwo")
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_categryTwo")
@@ -64,6 +68,8 @@ class CategoryTwo(models.Model): #[ air conditioner, plumbing, tv-dstv ]
     
 class SpareTool(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_spareTool', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     spareSerialNo = models.CharField(max_length=100,blank=True,null=True)
     spareName = models.CharField(max_length=100,blank=True,null=True)
     unit = models.IntegerField(default=0)
@@ -83,6 +89,8 @@ class SpareTool(models.Model):
     
 class Asset(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_asset', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     office = models.ForeignKey(Office, related_name='office_asset',on_delete=models.DO_NOTHING)
     categoryTwo = models.ForeignKey(CategoryTwo, related_name='CategoryTwo_assets',on_delete=models.DO_NOTHING)
     spareTool = models.ForeignKey(SpareTool, related_name = 'SpareTool_asset', on_delete=models.DO_NOTHING)

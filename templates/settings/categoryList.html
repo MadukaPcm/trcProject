@@ -1,0 +1,436 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-4">
+        <h1>Equipment category</h1>
+      </div>  
+      <div class="col-sm-6">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-assetCategory">Add asset cat.</a>
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-inventoryCategory">Add inventory cat.</a>
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-maxNoWorker">Add maxNo-worker</a>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Settings</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6">
+          <!-- DIRECT CHAT -->
+          <div class="card direct-chat direct-chat-warning">
+            <div class="card-header">
+              <h3 class="card-title">Asset category</h3>
+
+              <div class="card-tools">
+                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-sm">
+                      <table class="table m-0">
+                        <thead>
+                        <tr>
+
+                          <th>catNo</th>
+                          <th>Name</th>
+                          <th>Department</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>electric station</td>
+                          <td>civil</td>
+                          <td>
+                            <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                            <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                            <a class="fa fa-trash btn-sm btn-danger" title="delate" href="#"></a>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Rolling stock</td>
+                            <td>it</td>
+                            <td>
+                              <a class="fa fa-check btn-sm btn-success" title="dactivate" href="#"></a>
+                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                              <a class="fa fa-trash btn-sm btn-danger" title="delete" href="#"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+            </div>
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <form action="#" method="post">
+                <div class="input-group">
+                  <input type="text" name="message" placeholder="Type search cat ....." class="form-control">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-success"><b>search</b></button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-6">
+          <!-- DIRECT CHAT -->
+          <div class="card direct-chat direct-chat-warning">
+            <div class="card-header">
+              <h3 class="card-title">Inventory category</h3>
+
+              <div class="card-tools">
+                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-sm">
+                      <table class="table m-0">
+                        <thead>
+                        <tr>
+
+                          <th>catNo</th>
+                          <th>Name</th>
+                          <th>Department</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>air conditioner</td>
+                          <td>civil</td>
+                          <td>
+                            <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                            <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                            <a class="fa fa-trash btn-sm btn-danger" title="delate" href="#"></a>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Plumbing</td>
+                            <td>it</td>
+                            <td>
+                              <a class="fa fa-check btn-sm btn-success" title="dactivate" href="#"></a>
+                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                              <a class="fa fa-trash btn-sm btn-danger" title="delete" href="#"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+            </div>
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <form action="#" method="post">
+                <div class="input-group">
+                  <input type="text" name="message" placeholder="Type search cat ....." class="form-control">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-success"><b>search</b></button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">MaxNo of worker per order</h3>
+  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <ul class="products-list product-list-in-card pl-2 pr-2">
+                    <li class="item">
+                      <div class="product-img">
+                        <h2>3</h2>
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">Department
+                            <a class="fa fa-edit btn-sm btn-primary float-right" data-toggle="modal" data-target="#modal-maxNoEdit" title="edit" href="#"></a>
+                        <span class="product-description">
+                          telecommunication
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                        <div class="product-img">
+                          <h2>2</h2>
+                        </div>
+                        <div class="product-info">
+                          <a href="javascript:void(0)" class="product-title">Department
+                              <a class="fa fa-edit btn-sm btn-primary float-right" title="edit" href="#"></a>
+                          <span class="product-description">
+                            civil
+                          </span>
+                        </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /.card -->
+        </div>
+    </div>
+
+    <!--modal for creating asset category.....-->
+    <div class="modal fade" id="modal-assetCategory">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create asset category.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="categoryName" class="form-control" placeholder="Category name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+
+    <!--modal for creating inventory category.....-->
+    <div class="modal fade" id="modal-inventoryCategory">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create inventory category.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="categoryName" class="form-control" placeholder="Category name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    
+    <!--model for creating maxNo of workers per order.......-->
+    <div class="modal fade" id="modal-maxNoWorker">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create maxNo of worker per order.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="number" name="categoryName" class="form-control" placeholder="Category name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+    <!--Edit maxNo of workers per order...-->
+    <!--model for creating maxNo of workers per order.......-->
+    <div class="modal fade" id="modal-maxNoEdit">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Update maxNo of worker per order.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="number" name="categoryName" class="form-control" placeholder="Category name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+</div>
+</div>
+
+
+{% endblock content %}

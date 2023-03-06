@@ -1,4 +1,5 @@
 {% extends 'base/main.html' %}
+{% load static %}
 {% block content %}
 
 
@@ -30,17 +31,17 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
-                     src="../../dist/img/user4-128x128.jpg"
+                     src="{{ myProfileInfo.profileImage.url }}"
                      alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center">Bro Frank</h3>
+              <h3 class="profile-username text-center">{{myCredential.first_name}} - {{myCredential.last_name}}</h3>
 
-              <p class="text-muted text-center">Senior operator</p>
+              <p class="text-muted text-center">{{ myProfileInfo.department.name }} -> {{ my_role }}</p>
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Role</b> <a class="float-right">Technician</a>
+                  <b>Role</b> <a class="float-right">{{ my_role }}</a>
                 </li>
               </ul>
 
@@ -61,9 +62,8 @@
               <strong><i class="fas fa-user mr-1"></i>My Credentials</strong>
 
               <p class="text-muted">
-                <b>Full Name:</b> maduka pcm</br>
-                <b>Email Address:</b> madukapcm@gmail.com</br>
-                <b>Registration Number:</b> thecoder.
+                <b>Full Name:</b> {{myCredential.first_name}} {{myCredential.last_name}}</br>
+                <b>Email Address:</b> {{myCredential.email}}</br>
               </p>
 
               <hr>
@@ -71,8 +71,8 @@
               <strong><i class="fas fa-phone mr-1"></i>Communications</strong>
 
               <p class="text-muted">
-                <b>Phone Number:</b> 0620141577</br>
-                <b>Nida Number:</b> 1998062500019889.
+                <b>Phone Number:</b> {{ myProfileInfo.phone_number }}</br>
+                <b>Nida Number:</b> {{ myProfileInfo.nida_no }}.
               </p>
 
               <hr>
@@ -81,15 +81,14 @@
 
               <p class="text-muted">
                 <span class="tag tag-danger"><b>Sex:</b>
-                {% comment %} {% if myCredential.gender == "1" %} {% endcomment %}
+                {% if myProfileInfo.gender == "1" %}
                 Male
-                {% comment %} {% endif %} {% endcomment %}
-                {% comment %} {% if myCredential.gender == "2" %} {% endcomment %}
-                {% comment %} Female {% endcomment %}
-                {% comment %} {% endif %} {% endcomment %}
+                {% endif %}
+                {% if myProfileInfo.gender == "2" %}
+                Female
+                {% endif %}
                 </span></br>
-                <span class="tag tag-success"><b>Date of birth:</b> 25-06-1998</span>
-                {% comment %} <span class="tag tag-success"><b>Date of birth:</b> {{myCredential.dob|date:"d/m/Y"}}</span> {% endcomment %}
+                <span class="tag tag-success"><b>Date of birth:</b> {{ myProfileInfo.dob|date:"d/m/Y" }}</span>
               </p>
             </div>
             <!-- /.card-body -->
@@ -112,7 +111,7 @@
                   <!-- Post -->
                   <div class="post">
                     <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                      <img class="img-circle img-bordered-sm" src="{% static 'dist/img/TRC_logo.png' %}" alt="user image">
                       <span class="username">
                         <a href="#">TRC-Operation office.</a>
                         <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
@@ -183,7 +182,7 @@
 
                 <div class="tab-pane" id="settings">
                   
-                  <form action="#" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                  <form action="{% url 'updateProfile_url' %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                     {% csrf_token %}
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">First Name</label>
@@ -194,48 +193,55 @@
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Last Name</label>
                       <div class="col-sm-10">
-                        <input type="text" name="LastName" class="form-control" id="inputName" placeholder="kijano" value="{{myCredential.last_name}}" required>
+                        <input type="text" name="LastName" class="form-control" id="inputName" placeholder="brone" value="{{myCredential.last_name}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Phone Number</label>
                       <div class="col-sm-10">
-                        <input type="text" name="PhoneNumber" class="form-control" id="inputName" value="{{myCredential.phone_number}}" placeholder="0620141577" required>
+                        <input type="text" name="PhoneNumber" class="form-control" id="inputName" value="{{myProfileInfo.phone_number}}" placeholder="0620141577" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Nida Number</label>
                       <div class="col-sm-10">
-                        <input type="text" name="NidaNumber" class="form-control" id="inputName" value="{{myCredential.nida_no}}" placeholder="19980625229966775533">
+                        <input type="text" name="NidaNumber" class="form-control" id="inputName" value="{{myProfileInfo.nida_no}}" placeholder="19980625229966775533">
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Date of birth</label>
                       <div class="col-sm-10">  
-                        <input type="date" name="Bod" value="{{myCredential.dob|date:'Y-m-d'}}" class="form-control" id="inputName">
+                        <input type="date" name="Bod" value="{{myProfileInfo.dob|date:'Y-m-d'}}" class="form-control" id="inputName" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="inputName" class="col-sm-2 col-form-label">Address</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="Address" class="form-control" id="inputName" value="{{myProfileInfo.address}}" placeholder="P O Box 200, DSM" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Gender</label>
                       <select class="col-sm-10" id="selectGender" name="genderValue">
-                        {% comment %} {% if myCredential.gender == "1" %} {% endcomment %}
+                        {% if myProfileInfo.gender == "1" %}
                         <option value="1">Male</option>
-                        {% comment %} {% elif myCredential.gender == "2" %} {% endcomment %}
+                        {% elif myProfileInfo.gender == "2" %}
                         <option value="2">Female</option>
-                        {% comment %} {% else %} {% endcomment %}
+                        {% else %}
                         <option value="0">select gender</option>
                         <option value="1">Male</option>
                         <option value="2">Female</option>
-                        {% comment %} {% endif %} {% endcomment %}
+                        {% endif %}
                       </select>
                     </div>
 
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Profile Picture</label>
                       <div class="col-sm-10">
-                        <input type="file" name="Image" accept="image/png, image/jpg image/jpeg" value="#" class="form-control" id="inputName" required>
+                        <input type="file" name="Image" accept="image/png, image/jpg image/jpeg" class="form-control" id="inputName" required>
                       </div>
                     </div>
                     <div class="form-group row">

@@ -2,11 +2,14 @@ from django.db import models
 from uaa.models import User
 from inventory.models import Inventory
 from asset.models import SpareTool,Asset
+from uaa.models import Department
 from django.core.validators import FileExtensionValidator
 import uuid
 
 class MaintenanceSchedule(models.Model):  #this is maintenance order
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_maintenanceSchedule', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     inventory = models.ForeignKey(Inventory, related_name='inventory_maintenanceSchedule',
                                   on_delete=models.DO_NOTHING, blank=True, null=True)
     asset = models.ForeignKey(Asset, related_name='asset_maintenanceSchedule',
@@ -25,18 +28,6 @@ class MaintenanceSchedule(models.Model):  #this is maintenance order
     priority = models.CharField(max_length=10,blank=True,null=True)  # low,medium,high selection
     jobType = models.CharField(max_length=100,blank=True,null=True) #short description about the job.
     tradesNumber = models.CharField(max_length=10,blank=True,null=True)
-    
-    # #Costs, Estimated.
-    # labourCost = models.CharField(max_length=100,blank=True,null=True)
-    # materialCost = models.CharField(max_length=100,blank=True,null=True)
-    # otherCost = models.CharField(max_length=100,blank=True,null=True)
-    # total = models.CharField(max_length=100,blank=True,null=True)
-    
-    # #Costs, Actual.
-    # labourCost = models.CharField(max_length=100,blank=True,null=True)
-    # materialCost = models.CharField(max_length=100,blank=True,null=True)
-    # otherCost = models.CharField(max_length=100,blank=True,null=True)
-    # total = models.CharField(max_length=100,blank=True,null=True)
     
     #spares..
     spareTool = models.ForeignKey(SpareTool, related_name = 'SpareTool_MaintenanceSchedule', on_delete=models.DO_NOTHING)

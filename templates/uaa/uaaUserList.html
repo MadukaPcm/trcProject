@@ -7,7 +7,7 @@
     <div class="row mb-2" style="padding:5px;">
       <div class="col-sm-8">
         <h1>Users</h1>
-      </div>
+      </div>  
       <div class="col-sm-2">
         <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a>
       </div>
@@ -31,230 +31,57 @@
       <table id="example1" class="table table-sm table-bordered table-striped">
         <thead>
         <tr>
-          <th>Rendering engine</th>
-          <th>Browser</th>
-          <th>Platform(s)</th>
-          <th>Engine version</th>
-          <th>CSS grade</th>
+          <th>#</th>
+          <th>Full name</th>
+          <th>Email</th>
+          <th>Phone number(s)</th>
+          <th>Department</th>
+          <th>Gender</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
 
+        {% for allUser in userListData %}
         <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
+          <td>{{ forloop.counter }}</td>
+          <td>{{ allUser.user.first_name }} {{ allUser.user.last_name }}</td>
+          <td>{{ allUser.user.email }}</td>
+          <td>{{ allUser.phone_number }}</td>
+          <td>{{ allUser.department.name }}</td>
+          <td>
+            {% if allUser.gender == "1" %}
+            Male
+            {% elif allUser.gender == "2" %}
+            Female
+            {% else %}
+            -
+            {% endif %}
           </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
+          <td>
+            {% if allUser.user.is_active %}
+            <a class="fa fa-check btn-sm btn-success" title="block" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
+            {% else %}
+            <a class="fas fa-unlock btn-sm btn-success" title="unblock" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
+            {% endif %}
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{allUser.id}}"></a>
+            {% if not allUser.is_approved %}
+            <a class="fa fa-check btn-sm btn-warning" title="approve" href="{% url 'approveUser_url' %}?approveProfile_id={{allUser.id}}"></a>
+            {% endif %}
           </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
         </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 5.0
-          </td>
-          <td>Win 95+</td>
-          <td>5</td>
-          <td>C</td>
-        </tr>
-        <tr>
-          <td>Other browsers</td>
-          <td>All others</td>
-          <td>-</td>
-          <td>-</td>
-          <td>U</td>
-        </tr>
-
-        
+        {% endfor %}
+  
         </tbody>
         <tfoot>
         <tr>
-          <th>Rendering engine</th>
-          <th>Browser</th>
-          <th>Platform(s)</th>
-          <th>Engine version</th>
-          <th>CSS grade</th>
+          <th>#</th>
+          <th>Full name</th>
+          <th>Email</th>
+          <th>Phone number(s)</th>
+          <th>Department</th>
+          <th>Gender</th>
+          <th>Actions</th>
         </tr>
         </tfoot>
       </table>
@@ -276,10 +103,11 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="post">
+            <form action="{% url 'createUser_url' %}" method="POST">
                 {% csrf_token %}
+
                 <div class="input-group mb-3">
-                  <input type="text" name="Username" class="form-control" placeholder="Username" required>
+                  <input type="text" name="Username" class="form-control" placeholder="Employ Number" required>
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-user"></span>
@@ -291,6 +119,30 @@
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <select name="DepartmentId" class="form-control" required>
+                    {% for department in departmentObjectData %}
+                    <option value="{{department.id}}">{{ department.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-building"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <select name="RoleId" class="form-control">
+                      {% for roleInstance in roleInstanceData %}
+                      <option value="{{ roleInstance.id }}">{{ roleInstance.name }}</option>
+                      {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
                     </div>
                   </div>
                 </div>
@@ -311,17 +163,99 @@
                   </div>
                 </div>
 
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  {% for allUser in userListData %}
+  <div class="modal fade" id="modal-secondary{{allUser.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Update user.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <p class="form-control">CreatedBy: <i>{{allUser.createdBy}},@{{ allUser.createdAt|date:"d/m/Y" }}</i></p>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="far fa-clock"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <p class="form-control">updatedBy: <i>{{allUser.updatedBy}},@{{ allUser.updatedAt|date:"d/m/Y" }}</i></p>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="far fa-clock"></span>
+                  </div>
+                </div>
+              </div>
+            <form action="{% url 'updateUser_url' %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="profileId" class="form-control" value="{{allUser.id}}" required>
                 <div class="input-group mb-3">
-                    <select name="RoleId" class="form-control">
-                        {% for roleInstance in roleInstanceData %}
-                        <option value="{{ roleInstance.id }}">{{ roleInstance.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-list"></span>
-                      </div>
+                  <input type="text" name="Username" class="form-control" placeholder="Employ Number" value="{{allUser.user.username}}" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user"></span>
                     </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="email" name="Email" class="form-control" placeholder="Email" value="{{allUser.user.email}}" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <select name="DepartmentId" class="form-control">
+                    {% for department in departmentObjectData %}
+                    {% if allUser.department == department %}
+                    <option value="{{department.id}}" selected>{{department.name}}</option> 
+                    {% else %}
+                    <option value="{{department.id}}">{{department.name}}</option> 
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-building"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <select name="RoleId" class="form-control">
+                      {% for roleInstance in roleInstanceData %}
+                      {% if roleInstance in allUser.user.groups.all %}
+                      <option value="{{ roleInstance.id }}" selected>{{ roleInstance.name }}</option>
+                      {% else %}
+                      <option value="{{ roleInstance.id }}">{{ roleInstance.name }}</option>
+                      {% endif %}
+                      {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -335,5 +269,6 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+  {% endfor %}
 
 {% endblock content %}

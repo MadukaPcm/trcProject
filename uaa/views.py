@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import Group
-from uaa.models import Profile,User
+from uaa.models import Department,Profile,User
 from django.contrib.auth import authenticate,login,logout
 import uuid
 
@@ -30,7 +30,7 @@ def LoginView(request):
             user = authenticate(request, email=username, password=password)
             if user is not None and user.is_active:
                 login(request,user)
-                # messages.success(request, 'Your are now logged in !!')
+                messages.success(request, 'Your are now logged in !!')
                 return redirect('dashboard_url')
     
             else:
@@ -44,11 +44,13 @@ def LoginView(request):
     return render(request,"login.html")
 
 def RegisterView(request):
+    departmentObject = Department.objects.all()
     
     try:
         if request.method == 'POST':
             username = request.POST.get('Username')
             email = request.POST.get('Email')
+            departmentId = request.POST.get('departmentId')
             password = request.POST.get('Password')
             password1 = request.POST.get('ConfirmPassword')
             
@@ -84,23 +86,23 @@ def RegisterView(request):
             
             #creating a user profile.
             auth_token = str(uuid.uuid4())
-            profile_obj = Profile.objects.create(user=user_obj, auth_token=auth_token)
+            profile_obj = Profile.objects.create(user=user_obj, department_id=departmentId, auth_token=auth_token)
             profile_obj.save()
             
             #Sending email for verification.
             try:
                 SendEmailRegister(email, auth_token)
             except Exception as e:
-                return HttpResponse(e)
+                print(e)
             
             messages.info(request,'Check your email to verify.')
             return redirect('login_url')
         
     except Exception as e:
-        return HttpResponse(e)
+        print(e)
     
-    context = {}
-    return render(request,"uaa/register.html")
+    context = {'departmentObjectId':departmentObject}
+    return render(request,"uaa/register.html", context)
 
 #A function for sending email for verification.
 def SendEmailRegister(email, token):
@@ -203,9 +205,64 @@ def DashboardView(request):
 
 
 def ProfileView(request):
+    try:
+        myCredentials = User.objects.get(id=request.user.id)
+        myRole = request.user.groups.all()[0].name
+        myProfileInfos = Profile.objects.get(user=request.user)
     
-    context = {}
-    return render(request,"uaa/profile.html")
+    except Exception as e:
+        print(e) 
+        
+    context = {"myCredential":myCredentials,"my_role":myRole, "myProfileInfo":myProfileInfos}
+    return render(request,"uaa/profile.html", context)
+
+def UpdateProfileView(request):
+    
+    try:
+        updateUser = User.objects.get(id=request.user.id)
+        updateProfile = Profile.objects.get(user=request.user)
+        if request.method == 'POST' and 'Image' in request.FILES:
+            FirstName = request.POST.get('FirstName')
+            LastName = request.POST.get('LastName')
+            PhoneNumber = request.POST.get('PhoneNumber')
+            NidaNumber = request.POST.get('NidaNumber')
+            Bod = request.POST.get('Bod')
+            Address = request.POST.get('Address')
+            genderValue = request.POST.get('genderValue')
+            profile = request.FILES
+            profileImage = profile['Image'] 
+            
+        
+            if len(FirstName) < 3:
+                messages.info(request,'First Name, Is too short')
+                return redirect('/profile')
+            
+            if len(LastName) < 3:
+                messages.info(request,'Last Name, Is too short')
+                return redirect('/profile')
+            
+            if len(PhoneNumber) < 10 or len(PhoneNumber) > 10:
+                messages.info(request,'Invalid phone number format')
+                return redirect('/profile')
+        
+        
+            updateUser.first_name = FirstName
+            updateUser.last_name = LastName
+            updateUser.save()
+            
+            updateProfile.phone_number = PhoneNumber
+            updateProfile.nida_no = NidaNumber
+            updateProfile.dob = Bod
+            updateProfile.address = Address
+            updateProfile.gender = genderValue
+            updateProfile.profileImage = profileImage
+            updateProfile.save()
+            
+            messages.info(request,'Your Profile Is Updated')
+            return redirect('/profile')
+    
+    except Exception as e:
+        print(e) 
 
 
 def SuccessView(request):
@@ -227,16 +284,165 @@ def ErrorView(request):
 
 
 def UaaUserListView(request):
-    roleInstance = Group.objects.all()
+    try:
+        roleInstance = Group.objects.all()
+        departmentObject = Department.objects.all()
+        myDepartment = Profile.objects.get(user=request.user).department
+        myRole = request.user.groups.all()[0].name
+        
+        if myRole == "operator":
+            userList = Profile.objects.all()
+        elif myRole == "engineer":
+            userList = Profile.objects.filter(department=myDepartment)
+        else:
+            return redirect('login_url')   
+    except Exception as e:
+        print(e) 
     
-    context = {'roleInstanceData': roleInstance}
-    print(roleInstance)
+    context = {'roleInstanceData': roleInstance, 'departmentObjectData':departmentObject, 'userListData':userList}
     return render(request, 'uaa/uaaUserList.html', context)
 
 
 def CreateUserView(request):
-    pass
+    
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('Username')
+            email = request.POST.get('Email') 
+            departmentId = request.POST.get('DepartmentId')
+            RoleId = request.POST.get('RoleId')
+            password = request.POST.get('Password')
+            password1 = request.POST.get('ConfirmPassword')
+            
+            if User.objects.filter(username=username).first():
+                messages.info(request,'Username is already taken')
+                return redirect('uaaUserList_url')
+            
+            if User.objects.filter(email=email).first():
+                messages.info(request,'Email is already taken')
+                return redirect('uaaUserList_url')
+            
+            if len(username) < 5:
+                messages.info(request,'username, atlest 5 characters')
+                return redirect('uaaUserList_url')
+            
+            if password != password1:
+                messages.info(request,'password does not match')
+                return redirect('uaaUserList_url')
+            
+            if len(password) < 8:
+                messages.info(request, 'password, 8 mixed characters required')
+                return redirect('uaaUserList_url')
+            
+            #Creating and saving a user to the database.
+            user_obj = User(username=username, email=email)
+            user_obj.set_password(password)
+            user_obj.save()
+            
+            #Adding a default role to the registered user.
+            grp = Group.objects.get(id=RoleId)
+            user= User.objects.get(username=username)
+            user.groups.add(grp)
+            
+            #creating a user profile.
+            auth_token = str(uuid.uuid4())
+            profile_obj = Profile.objects.create(user=user_obj, department_id=departmentId, auth_token=auth_token, createdBy_id=request.user.id, updatedBy_id=request.user.id)
+            profile_obj.save()
+            
+            #Sending email for verification.
+            try:
+                SendEmailRegister(email, auth_token)
+            except Exception as e:
+                print(e)
+            
+            messages.info(request,'Check your email to verify.')
+            return redirect('uaaUserList_url')
+        
+    except Exception as e:
+        print(e)
 
+def UpdateUserView(request):
+    try:
+        if request.method == "POST":
+            profileId = request.POST.get('profileId')
+            Username = request.POST.get('Username') 
+            Email = request.POST.get('Email')
+            DepartmentId = request.POST.get('DepartmentId')
+            RoleId = request.POST.get('RoleId')
+            
+            try:
+                requestUserInstance = request.user
+                profileInstance = Profile.objects.get(id=profileId)
+                userId = profileInstance.user.id
+                userInstance = User.objects.get(id=userId)
+            except Exception as e:
+                print(e)
+                
+            try:
+                if userInstance == requestUserInstance:
+                    return redirect('uaaUserList_url')
+            except Exception as e:
+                print(e)
+            
+            try:
+                userInstance.username = Username
+                userInstance.email = Email
+                userInstance.save()
+            except Exception as e:
+                print(e)
+            
+            try:
+                profileInstance.department_id = DepartmentId
+                profileInstance.updatedBy_id = request.user.id
+                profileInstance.save()
+            except Exception as e:
+                print(e)
+            
+            try:
+                newGroup = Group.objects.get(id=RoleId)
+                currentUserGroups = userInstance.groups.all()
+                #removing user to all roles.
+                for group in currentUserGroups:
+                    userInstance.groups.remove(group)
+                #add the user to new role
+                userInstance.groups.add(newGroup)
+            except Exception as e:
+                print(e)
+            
+            return redirect('uaaUserList_url')
+        
+    except Exception as e:
+        print(e)
+
+def UserStatusView(request):
+    
+    try:
+        userInstance = request.user
+        userStatusObject = get_object_or_404(User,pk=request.GET.get('userStatus_id'))
+        if userInstance == userStatusObject:
+            return redirect('uaaUserList_url')
+        
+        userStatusObject.is_active = not userStatusObject.is_active
+        userStatusObject.save()
+        return redirect('uaaUserList_url')
+
+    except Exception as e:
+        print(e) 
+        
+
+def ApproveUserView(request):
+    try:
+        userInstance = request.user
+        userStatusObject = get_object_or_404(Profile,pk=request.GET.get('approveProfile_id'))
+        if userInstance == userStatusObject.user:
+            return redirect('uaaUserList_url')
+        
+        userStatusObject.is_approved = not userStatusObject.is_approved
+        userStatusObject.save()
+        return redirect('uaaUserList_url')
+    
+    except Exception as e:
+        print(e)
 
 def LogoutView(request):
     logout(request)

@@ -1,0 +1,489 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-6">
+        <h1>Station & Office</h1>
+      </div>  
+      <div class="col-sm-4">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-station">Add Station.</a>
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-office">Add Office.</a>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Settings</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+        <!-- DIRECT CHAT -->
+        <div class="card direct-chat direct-chat-warning">
+            <div class="card-header">
+              <h3 class="card-title">Stations</h3>
+
+              <div class="card-tools">
+                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-sm">
+                      <table class="table m-0">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Department</th>
+                          <th>StationName</th>
+                          <th>StationNumber</th>
+                          <th>RegionName</th>
+                          <th>createdBy</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>civil</td>
+                          <td>mahal</td>
+                          <td>23</td>
+                          <td>dsm</td>
+                          <td>madukapcm@gmail.com</td>
+                          <td>
+                            <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                            <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                            <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateStation" title="edit" href="#"></a>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>telecommunication</td>
+                            <td>wazi</td>
+                            <td>200mn</td>
+                            <td>mwanza</td>
+                            <td>nakubalii23@gmail.com</td>
+                            <td>
+                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateStation" title="edit" href="#"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+            </div>
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <form action="#" method="post">
+                <div class="input-group">
+                  <input type="text" name="message" placeholder="Type here to search for station ....." class="form-control">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-success btn-sm"><b>search</b></button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-footer-->
+          </div>
+        </div>
+          <!--/.direct-chat -->
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+         <!-- DIRECT CHAT -->
+         <div class="card direct-chat direct-chat-warning">
+            <div class="card-header">
+              <h3 class="card-title">Offices</h3>
+
+              <div class="card-tools">
+                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-sm">
+                      <table class="table m-0">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Department</th>
+                            <th>OfficeName</th>
+                            <th>OfficeNumber</th>
+                            <th>YearBuilt</th>
+                            <th>createdBy</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>telecommunication</td>
+                            <td>kk-o</td>
+                            <td>3000</td>
+                            <td>10-03-1998</td>
+                            <td>mawazore@gmail.com</td>
+                            <td>
+                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateOffice" title="edit" href="#"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>civil</td>
+                            <td>kipsico</td>
+                            <td>90</td>
+                            <td>20-04-1990</td>
+                            <td>kijana@gmail.com</td>
+                            <td>
+                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
+                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
+                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateOffice" title="edit" href="#"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+            </div>
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <form action="#" method="post">
+                <div class="input-group">
+                  <input type="text" name="message" placeholder="Type here to search for office ....." class="form-control">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-success btn-sm"><b>search</b></button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-footer-->
+          </div>
+        </div>
+          <!--/.direct-chat -->
+    </div>
+
+    <!--modal for creating asset category.....-->
+    <div class="modal fade" id="modal-station">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create station.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="StationName" class="form-control" placeholder="Station name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="number" name="StationNumber" class="form-control" placeholder="Station number" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-align-justify"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="REgionName" class="form-control" placeholder="Region name" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+
+    <!--modal for creating inventory category.....-->
+    <div class="modal fade" id="modal-office">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create office.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="StationId" class="form-control" required>
+                          {% for station in stationInstance %}
+                          <option value="{{station.id}}">{{ station.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="OfficeName" class="form-control" placeholder="Office name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="number" name="OfficeNumber" class="form-control" placeholder="office number" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-align-justify"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="date" name="YearBuilt" class="form-control" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-clock"></span>
+                          </div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    
+    <!--model for creating maxNo of workers per order.......-->
+    <div class="modal fade" id="modal-updateStation">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Update station.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="StationName" class="form-control" placeholder="Station name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="number" name="StationNumber" class="form-control" placeholder="Station number" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-align-justify"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="REgionName" class="form-control" placeholder="Region name" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+    <!--Edit maxNo of workers per order...-->
+    <!--model for creating maxNo of workers per order.......-->
+    <div class="modal fade" id="modal-updateOffice">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Update office.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'createUser_url' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-3">
+                        <select name="DepartmentId" class="form-control" required>
+                          {% for department in departmentObjectData %}
+                          <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="StationId" class="form-control" required>
+                          {% for station in stationInstance %}
+                          <option value="{{station.id}}">{{ station.name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-building"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" name="OfficeName" class="form-control" placeholder="Office name" required>
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-align-justify"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="number" name="OfficeNumber" class="form-control" placeholder="office number" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-align-justify"></span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="date" name="YearBuilt" class="form-control" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-clock"></span>
+                          </div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-light">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
+</div>
+</div>
+
+
+{% endblock content %}

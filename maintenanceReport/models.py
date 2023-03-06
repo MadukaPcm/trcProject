@@ -1,12 +1,15 @@
 from django.db import models
 from uaa.models import User
 from workOrder.models import MaintenanceSchedule
+from uaa.models import Department
 from django.core.validators import FileExtensionValidator
 import uuid
 
 
 class MaintenanceReport(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    department = models.ForeignKey(Department, related_name='department_maintenanceReport', 
+                                   on_delete=models.DO_NOTHING, null=True, blank=True)
     MaintenanceSchedule = models.ForeignKey(MaintenanceSchedule, 
                                             related_name="maintenanceSchedule_maitenaceR", on_delete=models.DO_NOTHING)
     mrNumber = models.CharField(max_length=100, null=True, blank=True)   #this should automatically be filled

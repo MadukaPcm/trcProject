@@ -14,7 +14,7 @@
     <form method="post">
       {% csrf_token %}
       <div class="input-group mb-3">
-        <input type="text" name="Username" class="form-control" placeholder="Username" required>
+        <input type="text" name="Username" class="form-control" placeholder="Employ Number" required>
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-user"></span>
@@ -26,6 +26,18 @@
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-envelope"></span>
+          </div>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <select name="departmentId" class="form-control" required>
+          {% for department in departmentObjectId %}
+          <option value="{{department.id}}">{{ department.name }}</option>
+          {% endfor %}
+        </select>
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-building"></span>
           </div>
         </div>
       </div>
@@ -63,6 +75,9 @@
     </form>
 
     <a href="{% url 'login_url' %}" class="text-center">I already have a membership</a>
+    <button type="button" class="btn btn-success swalDefaultSuccess">
+      Launch Success Toast
+    </button>
   </div>
   <!-- /.form-box -->
 

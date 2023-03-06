@@ -16,14 +16,35 @@ class User(AbstractUser):
 
     def __str__(self):
         return "{}".format(self.email)
+    
+    
+class Department(models.Model):
+    id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    name = models.CharField(max_length=100,blank=True,null=True)
+    Email = models.CharField(max_length=100,blank=True,null=True)
+    phoneNumber = models.CharField(max_length=20,blank=True,null=True)
+    
+    createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_branch",blank=True,null=True)
+    updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_brnch",blank=True,null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+    status= models.BooleanField(default=True)
+    
+    class Meta:
+        ordering =['-createdAt','-updatedAt']
+    
+    def __str__(self):
+        return str(self.name)
 
 
 class Profile(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
-    user = models.OneToOneField(User, related_name='profil',on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='profil',on_delete=models.DO_NOTHING)
+    department = models.ForeignKey(Department, related_name='department_profile', on_delete=models.DO_NOTHING, null=True, blank=True)
     
     auth_token = models.CharField(max_length=100,blank=True,null=True)
     is_verified = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)
     
     nida_no = models.CharField(max_length=25, null=True, blank=True)
     phone_number = models.CharField(max_length=15, blank=True,null=True)
@@ -47,22 +68,3 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.email
     
-# class Branch(models.Model):   To be placed between User and Profile models when needed--
-#     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
-#     name = models.CharField(max_length=100,blank=True,null=True)
-#     siteName = models.CharField(max_length=100,blank=True,null=True)
-#     address = models.CharField(max_length=100,blank=True,null=True)
-#     Email = models.CharField(max_length=100,blank=True,null=True)
-#     phoneNumber = models.CharField(max_length=20,blank=True,null=True)
-    
-#     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_branch",blank=True,null=True)
-#     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_brnch",blank=True,null=True)
-#     createdAt = models.DateTimeField(auto_now_add=True)
-#     updatedAt = models.DateTimeField(auto_now=True)
-#     status= models.BooleanField(default=True)
-    
-#     class Meta:
-#         ordering =['-createdAt','-updatedAt']
-    
-#     def __str__(self):
-#         return str(self.name)
