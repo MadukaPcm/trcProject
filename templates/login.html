@@ -3,13 +3,8 @@
 
 <div class="card-body elv">
     <p class="login-box-msg">Sign in to start your session</p>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info">
-      {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
+    
+    {% include 'uaa/authmessage.html' %}
 
     <form method="post">
       {% csrf_token %}

@@ -3,13 +3,8 @@
 
 <div class="card-body">
     <p class="login-box-msg">Register a new membership</p>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info">
-      {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
+    
+    {% include 'uaa/authmessage.html' %}
 
     <form method="post">
       {% csrf_token %}
@@ -75,9 +70,6 @@
     </form>
 
     <a href="{% url 'login_url' %}" class="text-center">I already have a membership</a>
-    <button type="button" class="btn btn-success swalDefaultSuccess">
-      Launch Success Toast
-    </button>
   </div>
   <!-- /.form-box -->
 

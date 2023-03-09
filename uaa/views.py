@@ -106,13 +106,17 @@ def RegisterView(request):
 
 #A function for sending email for verification.
 def SendEmailRegister(email, token):
-    subject = 'Your accounts needs to be verified'
-    message = f'Hi verify your account 3.91.71.75/verify/{token}'
-    # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email]
-    send_mail(subject, message,email_from,recipient_list)
-
+    
+    try:
+        subject = 'Your accounts needs to be verified'
+        message = f'Hi verify your account 3.91.71.75/verify/{token}'
+        # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        send_mail(subject, message,email_from,recipient_list)
+    except Exception as e:
+        print(e)
+    
 
 #Verify your account.
 def VerifyView(request, auth_token):
@@ -160,12 +164,15 @@ def ResetPasswordView(request):
     return render(request,"uaa/resetpassword.html")
 
 def SendEmailPasswordResetView(email):
-    subject = 'password reset, click the link below'
-    message = f'Hi verify your account 3.91.71.75/RecoverPassword/{email}'
-    # message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}' #for local host
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email]
-    send_mail(subject, message,email_from,recipient_list)
+    try:
+        subject = 'password reset, click the link below'
+        message = f'Hi verify your account 3.91.71.75/RecoverPassword/{email}'
+        # message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}' #for local host
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        send_mail(subject, message,email_from,recipient_list)
+    except Exception as e:
+        print(e)
 
 
 def RecoverPasswordView(request, email):
@@ -261,8 +268,8 @@ def UpdateProfileView(request):
             messages.info(request,'Your Profile Is Updated')
             return redirect('/profile')
     
-    except Exception as e:
-        print(e) 
+    except:
+        return render(None, 'uaa/error500.html')
 
 
 def SuccessView(request):
@@ -358,8 +365,8 @@ def CreateUserView(request):
             messages.info(request,'Check your email to verify.')
             return redirect('uaaUserList_url')
         
-    except Exception as e:
-        print(e)
+    except:
+        return render(None, 'uaa/error500.html')
 
 def UpdateUserView(request):
     try:
@@ -409,10 +416,11 @@ def UpdateUserView(request):
             except Exception as e:
                 print(e)
             
+            messages.success(request,'User Updated')
             return redirect('uaaUserList_url')
         
-    except Exception as e:
-        print(e)
+    except:
+        return render(None, 'uaa/error500.html')
 
 def UserStatusView(request):
     
@@ -424,10 +432,11 @@ def UserStatusView(request):
         
         userStatusObject.is_active = not userStatusObject.is_active
         userStatusObject.save()
+        messages.info(request,'User status changed')
         return redirect('uaaUserList_url')
 
-    except Exception as e:
-        print(e) 
+    except:
+        return render(None, 'uaa/error500.html')
         
 
 def ApproveUserView(request):
@@ -439,10 +448,11 @@ def ApproveUserView(request):
         
         userStatusObject.is_approved = not userStatusObject.is_approved
         userStatusObject.save()
+        messages.info(request,'User  successfully approved.')
         return redirect('uaaUserList_url')
     
-    except Exception as e:
-        print(e)
+    except:
+        return render(None, 'uaa/error500.html')
 
 def LogoutView(request):
     logout(request)

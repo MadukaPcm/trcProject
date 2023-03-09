@@ -68,8 +68,8 @@ class TradesSetting(models.Model):
                                    on_delete=models.DO_NOTHING, null=True, blank=True)
     maxTradeNumber = models.IntegerField()
     
-    createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_tradesSetting")
-    updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_tradesSettings")
+    createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_tradesSetting", null=True, blank=True)
+    updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_tradesSettings", null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
     status= models.BooleanField(default=True)

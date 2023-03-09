@@ -309,6 +309,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item" id="hovColor">
+                <a href="{% url 'department_url' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon" style="color:#ff9900
+                  ;"></i>
+                  <p style="color:white;">Department</p>
+                </a>
+              </li>
+              
+              <li class="nav-item" id="hovColor">
                 <a href="{% url 'categoryList_url' %}" class="nav-link">
                   <i class="far fa-circle nav-icon" style="color:#ff9900
                   ;"></i>
@@ -337,6 +345,9 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="background:#ffffff;">
 
+    <!--dealing with messages...-->
+    {% include 'uaa/message.html' %}
+
     {% block content %}
   
     {% endblock content %}
@@ -352,7 +363,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022-2023 <a href="#">TRC</a>.</strong>
+    <strong>Copyright &copy; 2022-2023 <a href="mailto:madukapcm@gmail.com">madukapcm</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
@@ -414,6 +425,15 @@
       "responsive": true,
     });
   });
+</script>
+
+<!--message scripts...-->
+<script>
+  setTimeout(function(){
+    if($('#msg').length > 0){
+      $('#msg').remove();
+    }
+  }, 2000)
 </script>
 
 </body>

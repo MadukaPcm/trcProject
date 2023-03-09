@@ -27,14 +27,16 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-2">
+        </div>
+        <div class="col-10">
         <!-- DIRECT CHAT -->
         <div class="card direct-chat direct-chat-warning">
             <div class="card-header">
               <h3 class="card-title">Stations</h3>
 
               <div class="card-tools">
-                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <span title="3 New Messages" class="badge badge-warning">{{ totalStation }}</span>
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
@@ -60,32 +62,26 @@
                         </tr>
                         </thead>
                         <tbody>
+
+                        {% for station in stationInstanceData %}
                         <tr>
-                          <td>1</td>
-                          <td>civil</td>
-                          <td>mahal</td>
-                          <td>23</td>
-                          <td>dsm</td>
-                          <td>madukapcm@gmail.com</td>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ station.department.name }}</td>
+                          <td>{{ station.stationName }}</td>
+                          <td>{{ station.stationNumber }}</td>
+                          <td>{{ station.regionName }}</td>
+                          <td>{{ station.createdBy.email }}</td>
                           <td>
-                            <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
-                            <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
-                            <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateStation" title="edit" href="#"></a>
+                            {% if station.status %}
+                            <a class="fa fa-check btn-sm btn-success" title="deactivate" href="{% url 'stationStatus_url' %}?station_id={{station.id}}"></a>
+                            {% else %}
+                            <a class="fas fa-times btn-sm btn-danger" title="activate" href="{% url 'stationStatus_url' %}?station_id={{station.id}}"></a>
+                            {% endif %}
+                            <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateStation{{station.id}}" title="edit"></a>
                           </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>telecommunication</td>
-                            <td>wazi</td>
-                            <td>200mn</td>
-                            <td>mwanza</td>
-                            <td>nakubalii23@gmail.com</td>
-                            <td>
-                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
-                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
-                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateStation" title="edit" href="#"></a>
-                            </td>
-                        </tr>
+                        {% endfor %}
+
                         </tbody>
                       </table>
                     </div>
@@ -97,6 +93,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <form action="#" method="post">
+                {% csrf_token %}
                 <div class="input-group">
                   <input type="text" name="message" placeholder="Type here to search for station ....." class="form-control">
                   <span class="input-group-append">
@@ -112,14 +109,16 @@
     </div>
 
     <div class="row">
-        <div class="col-12">
+      <div class="col-2">
+      </div>
+        <div class="col-10">
          <!-- DIRECT CHAT -->
          <div class="card direct-chat direct-chat-warning">
             <div class="card-header">
               <h3 class="card-title">Offices</h3>
 
               <div class="card-tools">
-                <span title="3 New Messages" class="badge badge-warning">3</span>
+                <span title="3 New Messages" class="badge badge-warning">{{ totalOffice }}</span>
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
@@ -137,40 +136,36 @@
                         <tr>
                             <th>#</th>
                             <th>Department</th>
+                            <th>Station</th>
                             <th>OfficeName</th>
-                            <th>OfficeNumber</th>
+                            <th>OfficeNo</th>
                             <th>YearBuilt</th>
                             <th>createdBy</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
+                        
+                        {% for office in officeInstanceData %}
                         <tr>
-                            <td>2</td>
-                            <td>telecommunication</td>
-                            <td>kk-o</td>
-                            <td>3000</td>
-                            <td>10-03-1998</td>
-                            <td>mawazore@gmail.com</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ office.department.name }}</td>
+                            <td>{{ office.station.stationName }}</td>
+                            <td>{{ office.officeName }}</td>
+                            <td>{{ office.OfficeNumber }}</td>
+                            <td>{{ office.yearBuilt|date:"d/m/Y" }}</td>
+                            <td>{{ office.createdBy.email }}</td>
                             <td>
-                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
-                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
-                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateOffice" title="edit" href="#"></a>
+                              {% if office.status %}
+                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="{% url 'officeStatus_url' %}?officeId={{office.id}}"></a>
+                              {% else %}
+                              <a class="fas fa-times btn-sm btn-danger" title="activate" href="{% url 'officeStatus_url' %}?officeId={{office.id}}"></a>
+                              {% endif %}
+                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateOffice{{office.id}}" title="edit"></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>civil</td>
-                            <td>kipsico</td>
-                            <td>90</td>
-                            <td>20-04-1990</td>
-                            <td>kijana@gmail.com</td>
-                            <td>
-                              <a class="fa fa-check btn-sm btn-success" title="deactivate" href="#"></a>
-                              <a class="fas fa-times btn-sm btn-success" title="activate" href="#"></a>
-                              <a class="fa fa-edit btn-sm btn-primary" data-toggle="modal" data-target="#modal-updateOffice" title="edit" href="#"></a>
-                            </td>
-                        </tr>
+                        {% endfor %}
+
                         </tbody>
                       </table>
                     </div>
@@ -182,6 +177,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <form action="#" method="post">
+                {% csrf_token %}
                 <div class="input-group">
                   <input type="text" name="message" placeholder="Type here to search for office ....." class="form-control">
                   <span class="input-group-append">
@@ -196,6 +192,7 @@
           <!--/.direct-chat -->
     </div>
 
+
     <!--modal for creating asset category.....-->
     <div class="modal fade" id="modal-station">
         <div class="modal-dialog">
@@ -207,7 +204,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'createUser_url' %}" method="POST">
+                <form action="{% url 'createStation_url' %}" method="POST">
                     {% csrf_token %}
     
                     <div class="input-group mb-3">
@@ -273,7 +270,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'createUser_url' %}" method="POST">
+                <form action="{% url 'createOffice_url' %}" method="POST">
                     {% csrf_token %}
     
                     <div class="input-group mb-3">
@@ -290,8 +287,8 @@
                     </div>
                     <div class="input-group mb-3">
                         <select name="StationId" class="form-control" required>
-                          {% for station in stationInstance %}
-                          <option value="{{station.id}}">{{ station.name }}</option>
+                          {% for station in stationInstanceData %}
+                          <option value="{{station.id}}">{{ station.stationName }}</option>
                           {% endfor %}
                         </select>
                         <div class="input-group-append">
@@ -340,7 +337,8 @@
     <!-- /.modal -->
     
     <!--model for creating maxNo of workers per order.......-->
-    <div class="modal fade" id="modal-updateStation">
+    {% for station in stationInstanceData %}
+    <div class="modal fade" id="modal-updateStation{{station.id}}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -350,13 +348,18 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'createUser_url' %}" method="POST">
+                <form action="{% url 'updateStation_url' station.id %}" method="POST">
                     {% csrf_token %}
-    
+
+                    {% comment %} <input type="hidden" name="StationId" class="form-control" value="{{station.id}}" required> {% endcomment %}
                     <div class="input-group mb-3">
                         <select name="DepartmentId" class="form-control" required>
                           {% for department in departmentObjectData %}
+                          {% if station.department == department %}
+                          <option value="{{department.id}}" selected>{{ department.name }}</option>
+                          {% else %}
                           <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endif %}
                           {% endfor %}
                         </select>
                         <div class="input-group-append">
@@ -366,7 +369,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                      <input type="text" name="StationName" class="form-control" placeholder="Station name" required>
+                      <input type="text" name="StationName" class="form-control" placeholder="Station name" value="{{station.stationName}}" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-align-justify"></span>
@@ -375,7 +378,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="number" name="StationNumber" class="form-control" placeholder="Station number" required>
+                        <input type="number" name="StationNumber" class="form-control" placeholder="Station number" value="{{station.stationNumber}}" required>
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-align-justify"></span>
@@ -383,7 +386,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="REgionName" class="form-control" placeholder="Region name" required>
+                        <input type="text" name="REgionName" class="form-control" placeholder="Region name" value="{{station.regionName}}" required>
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-building"></span>
@@ -402,11 +405,13 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    {% endfor %}
       <!-- /.modal -->
 
     <!--Edit maxNo of workers per order...-->
     <!--model for creating maxNo of workers per order.......-->
-    <div class="modal fade" id="modal-updateOffice">
+    {% for office in officeInstanceData %}
+    <div class="modal fade" id="modal-updateOffice{{office.id}}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -416,13 +421,17 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'createUser_url' %}" method="POST">
+                <form action="{% url 'updateOffice_url' office.id %}" method="POST">
                     {% csrf_token %}
     
                     <div class="input-group mb-3">
                         <select name="DepartmentId" class="form-control" required>
                           {% for department in departmentObjectData %}
+                          {% if office.department == department %}
+                          <option value="{{department.id}}" selected>{{ department.name }}</option>
+                          {% else %}
                           <option value="{{department.id}}">{{ department.name }}</option>
+                          {% endif %}
                           {% endfor %}
                         </select>
                         <div class="input-group-append">
@@ -433,8 +442,12 @@
                     </div>
                     <div class="input-group mb-3">
                         <select name="StationId" class="form-control" required>
-                          {% for station in stationInstance %}
-                          <option value="{{station.id}}">{{ station.name }}</option>
+                          {% for station in stationInstanceData %}
+                          {% if office.station == station %}
+                          <option value="{{station.id}}" selected>{{ station.stationName }}</option>
+                          {% else %}
+                          <option value="{{station.id}}">{{ station.stationName }}</option>
+                          {% endif %}
                           {% endfor %}
                         </select>
                         <div class="input-group-append">
@@ -444,7 +457,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                      <input type="text" name="OfficeName" class="form-control" placeholder="Office name" required>
+                      <input type="text" name="OfficeName" class="form-control" placeholder="Office name" value="{{office.officeName}}" required>
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-align-justify"></span>
@@ -453,7 +466,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="number" name="OfficeNumber" class="form-control" placeholder="office number" required>
+                        <input type="number" name="OfficeNumber" class="form-control" placeholder="office number" value="{{office.OfficeNumber}}" required>
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-align-justify"></span>
@@ -461,7 +474,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="date" name="YearBuilt" class="form-control" required>
+                        <input type="date" name="YearBuilt" class="form-control" value="{{office.yearBuilt|date:'Y-m-d'}}" required>
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-clock"></span>
@@ -480,10 +493,9 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    {% endfor %}
       <!-- /.modal -->
-
+  </div>
 </div>
-</div>
-
 
 {% endblock content %}

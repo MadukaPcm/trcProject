@@ -62,7 +62,7 @@
             {% if allUser.user.is_active %}
             <a class="fa fa-check btn-sm btn-success" title="block" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
             {% else %}
-            <a class="fas fa-unlock btn-sm btn-success" title="unblock" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
+            <a class="fas fa-unlock btn-sm btn-danger" title="unblock" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
             {% endif %}
             <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{allUser.id}}"></a>
             {% if not allUser.is_approved %}
