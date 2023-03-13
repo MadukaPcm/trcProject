@@ -166,12 +166,20 @@
               <i class="nav-icon fas fa-store"></i>
               <p>
                 Assets 
-                <i class="fas fa-angle-left right"></i>
+                <i class="fas fa-angle-left right"></i>  
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item" id="hovColor">
-                <a href="#" class="nav-link">
+                <a href="{% url 'spareTool_url' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon" style="color:#ff9900
+                  ;"></i>
+                  <p style="color:white;">Spare tools</p>
+                </a>
+              </li>
+
+              <li class="nav-item" id="hovColor">
+                <a href="{% url 'AssetManage_url' %}" class="nav-link">
                   <i class="far fa-circle nav-icon" style="color:#ff9900
                   ;"></i>
                   <p style="color:white;">All Assets</p>
@@ -198,15 +206,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item" id="hovColor">
-                <a href="#" class="nav-link">
+                <a href="{% url 'Inventory_url' %}" class="nav-link">
                   <i class="far fa-circle nav-icon" style="color:#ff9900
                   ;"></i>
-                  <p style="color:white;">All Assets</p>
+                  <p style="color:white;">Manage Inventory</p>
                 </a>
               </li>
 
               <li class="nav-item" id="hovColor">
-                <a href="#" class="nav-link">
+                <a href="{% url 'Inventory_url' %}" class="nav-link">
                   <i class="far fa-circle nav-icon" style="color:#ff9900
                   ;"></i>
                   <p style="color:white;">Manage Spares</p>

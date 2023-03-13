@@ -1,0 +1,423 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-8">
+        <h1>Manage Inventory</h1>
+      </div>  
+      <div class="col-sm-2">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-addInventory">Add Equipment</a>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Inventory</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Department</th>
+          <th>Spare tool</th>
+          <th>Serial number</th>
+          <th>uquipName</th>
+          <th>m No</th>
+          <th>Quantity</th>
+          <th>Auto S'</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for ivtry in inventoryInstanceData %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ ivtry.department.name }}</td>
+          <td>{{ ivtry.spareTool.spareName }}</td>
+          <td>{{ ivtry.serialNumber }}</td>
+          <td>{{ ivtry.spareName }}</td>    
+          <td>{{ ivtry.maintenanceNumber }}</td>
+          <td>{{ ivtry.unit }}</td>
+          <td>
+            {% if ivtry.iam %}
+            <a style="color:white;" title="auto'S" href="{% url 'isAutoIMaintained_url' %}?isAutoi_id={{ivtry.id}}">Yes</a>
+            {% else %}
+            <a style="color:white;" title="Not auto'S" href="{% url 'isAutoIMaintained_url' %}?isAutoi_id={{ivtry.id}}">No</a>
+            {% endif %}
+          </td>
+          <td>
+            {% if ivtry.status %}
+            <a class="fa fa-check btn-sm btn-success" title="active" href="{% url 'inventoryStatus_url' %}?ivtry_id={{ivtry.id}}"></a>
+            {% else %}
+            <a class="fas fa-times btn-sm btn-danger" title="inactive" href="{% url 'inventoryStatus_url' %}?ivtry_id={{ivtry.id}}"></a>
+            {% endif %}
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-assetEdit{{ivtry.id}}"></a>
+        </tr>
+        {% endfor %}
+  
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>#</th>
+            <th>Department</th>
+            <th>Spare tool</th>
+            <th>Serial number</th>
+            <th>equipName</th>
+            <th>m No</th>
+            <th>Quantity</th>
+            <th>Auto S'</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+<div class="modal fade" id="modal-addInventory">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Create new equipment.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+            <form action="{% url 'createInventory_url' %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-2" style="padding:5px;">
+                    <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <select name="DepartmentId" class="form-control" required>
+                              {% for department in departmentObjectData %}
+                              <option value="{{department.id}}">{{ department.name }}</option>
+                              {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <select name="catOneId" class="form-control" required>
+                              {% for catOne in catOneInstanceData %}
+                              <option value="{{catOne.id}}">{{ catOne.name }}</option>
+                              {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <select name="SpareId" class="form-control">
+                                {% for spt in spToolInstance %}
+                                <option value="{{ spt.id }}">{{ spt.spareName }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="SerialNo" class="form-control" placeholder="enter serial number" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="equipName" class="form-control" placeholder="type asset name" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" name="SiteName" class="form-control" placeholder="site name ie-department" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="Vendor" class="form-control" placeholder="vendor name" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="number" name="TotalPrice" class="form-control" placeholder="buying price" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="number" name="LifeSpan" class="form-control" placeholder="life span in years eg,5" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <input type="number" name="Mtl" class="form-control" placeholder="max time length in months" required>
+                                    <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-list"></span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                  <input type="date" name="Lmd" class="form-control" placeholder="last-maintained" required>
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-clock"></span>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="input-group mb-3">
+                            <input type="number" name="Unit" class="form-control" placeholder="quantity" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  {% for ivtry in inventoryInstanceData %}
+  <div class="modal fade" id="modal-assetEdit{{ivtry.id}}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Update asset.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <p class="form-control">CreatedBy:   <i>&nbsp&nbsp{{ivtry.createdBy}},  &nbsp&nbsp @-{{ ivtry.createdAt|date:"d/m/Y" }}</i></p>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="far fa-clock"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <p class="form-control">updatedBy:   <i>&nbsp&nbsp{{ivtry.updatedBy}},  &nbsp&nbsp @-{{ ivtry.updatedAt|date:"d/m/Y" }}</i></p>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="far fa-clock"></span>
+                  </div>
+                </div>
+              </div>
+              <form action="{% url 'updateInventory_url' ivtry.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-2" style="padding:5px;">
+                    <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <select name="DepartmentId" class="form-control" required>
+                              {% for department in departmentObjectData %}
+                              {% if ivtry.department == department %}
+                              <option value="{{department.id}}" selected>{{ department.name }}</option>
+                              {% else %}
+                              <option value="{{department.id}}">{{ department.name }}</option>
+                              {% endif %}
+                              {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <select name="catOneId" class="form-control" required>
+                              {% for catOne in catOneInstanceData %}
+                              {% if ivtry.categoryTwo == catTwo %}
+                              <option value="{{catOne.id}}" selected>{{ catOne.name }}</option>
+                              {% else %}
+                              <option value="{{catOne.id}}">{{ catOne.name }}</option>
+                              {% endif %}
+                              {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <select name="SpareId" class="form-control">
+                              {% for spt in spToolInstance %}
+                              {% if ivtry.spareTool == spt %}
+                              <option value="{{ spt.id }}" selected>{{ spt.spareName }}</option>
+                              {% else %}
+                              <option value="{{ spt.id }}">{{ spt.spareName }}</option>
+                              {% endif %}
+                              {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="SerialNo" class="form-control" value="{{ ivtry.serialNumber }}" placeholder="enter serial number" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="equipName" class="form-control" value="{{ ivtry.spareName }}" placeholder="type asset name" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" name="SiteName" class="form-control" value="{{ ivtry.siteName }}" placeholder="site name ie-department" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-building"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="text" name="Vendor" class="form-control" value="{{ ivtry.vendor }}" placeholder="vendor name" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="number" name="TotalPrice" class="form-control" value="{{ ivtry.totalPrice }}" placeholder="buying price" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-group mb-3">
+                            <input type="number" name="LifeSpan" class="form-control" value="{{ ivtry.lifeSpan }}" placeholder="life span in years eg,5" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <input type="number" name="Mtl" class="form-control" value="{{ ivtry.mtl }}" placeholder="max time length in months" required>
+                                    <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-list"></span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                  <input type="date" name="Lmd" class="form-control" value="{{ivtry.lastMaintained|date:'Y-m-d'}}" required>
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-clock"></span>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="input-group mb-3">
+                            <input type="number" name="Unit" class="form-control" value="{{ ivtry.unit }}" placeholder="quantity" required>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+{% endblock content %}

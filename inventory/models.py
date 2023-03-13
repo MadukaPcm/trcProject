@@ -32,21 +32,16 @@ class Inventory(models.Model):
     spareTool = models.ForeignKey(SpareTool, related_name = 'SpareTool_inventry', on_delete=models.DO_NOTHING)
     serialNumber = models.CharField(max_length=100,blank=True,null=True)
     spareName = models.CharField(max_length=100,blank=True,null=True)
-    costSpent = models.CharField(max_length=100,blank=True,null=True)
     totalPrice = models.CharField(max_length=100,blank=True,null=True)
     lifeSpan = models.CharField(max_length=100,blank=True,null=True)
     mtl = models.CharField(max_length=100,blank=True,null=True)  #maintenance time length.
     siteName = models.CharField(max_length=100,blank=True,null=True) #place placed. eng....Trc-posta.
-    userManual = models.FileField(upload_to='userManual/inventory/', 
-                                    validators=[FileExtensionValidator(
-                                        allowed_extensions=['pdf','docx','ppt'])],
-                                    null=True,blank=True)
     orderStatus = models.BooleanField(default=False)
     vendor = models.CharField(max_length=100,blank=True,null=True)
-    description = models.TextField()
-    iam = models.BooleanField(default=False) #is automatic schedule manteined
+    iam = models.BooleanField(default=True) #is automatic schedule manteined
     maintenanceNumber = models.IntegerField(default=0)
     unit = models.IntegerField(default=0)
+    lastMaintained = models.DateField(null=True, blank=True)
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_inventory")
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_inventry")

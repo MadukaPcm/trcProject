@@ -2,7 +2,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.AssetManageView, name='AssetManage_url'),
+    path('', views.SpareToolView, name='spareTool_url'),
+    path('createSpareTool/', views.CreateSpareToolView, name='createSpareTool_url'),
+    path('spareStatus/', views.SpareToolStatusView, name='spareStatus'),
+    path('updateSpTool/<str:pk>', views.UpdateSpareToolView, name='updateSpTool_url'),
+    
+    path('assetManage/', views.AssetManageView, name='AssetManage_url'),
+    path('createAsset/', views.CreateAssetView, name='createAsset_url'),
+    path('isAuto/', views.IsAutoMaintainedView, name='isAuto_url'),
+    path('assetStatus/', views.AssetStatusView, name='assetStatus_url'),
+    path('updateAsset/<str:pk>', views.UpdateAssetView, name='updateAsset_url'),
     
     #system settings urls path.
     path('department/', views.DepartmentView, name='department_url'),

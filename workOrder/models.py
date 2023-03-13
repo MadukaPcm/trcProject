@@ -5,6 +5,7 @@ from asset.models import SpareTool,Asset
 from uaa.models import Department
 from django.core.validators import FileExtensionValidator
 import uuid
+import datetime
 
 class MaintenanceSchedule(models.Model):  #this is maintenance order
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
@@ -48,5 +49,9 @@ class MaintenanceSchedule(models.Model):  #this is maintenance order
     
     def __str__(self):
         return str(self.OrderNumber)
+    
+    # @property
+    # def noDays(self):
+    #     return ((datetime.date.today()) - self.issueDate).days
     
 

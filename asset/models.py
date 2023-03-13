@@ -64,7 +64,7 @@ class CategoryTwo(models.Model): #[ air conditioner, plumbing, tv-dstv ]
         ordering =['-createdAt','-updatedAt']
     
     def __str__(self):
-        return str(self.name)
+        return str(self.name)   
     
 class SpareTool(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
@@ -96,22 +96,23 @@ class Asset(models.Model):
     spareTool = models.ForeignKey(SpareTool, related_name = 'SpareTool_asset', on_delete=models.DO_NOTHING)
     serialNumber = models.CharField(max_length=100,blank=True,null=True)
     assetName = models.CharField(max_length=100,blank=True,null=True)           
-    costSpent = models.CharField(max_length=100,blank=True,null=True)
+    # costSpent = models.CharField(max_length=100,blank=True,null=True)
     totalPrice = models.CharField(max_length=100,blank=True,null=True)
     lifeSpan = models.CharField(max_length=100,blank=True,null=True)
     mtl = models.CharField(max_length=100,blank=True,null=True)  #maintenance time length.
     siteName = models.CharField(max_length=100,blank=True,null=True) #place placed. eng....Trc-posta.
-    userManual = models.FileField(upload_to='userManual/asset/', 
-                                    validators=[FileExtensionValidator(
-                                        allowed_extensions=['pdf','docx','ppt'])],
-                                    null=True,blank=True)
-    orderStatus = models.BooleanField(default=False)
+    # userManual = models.FileField(upload_to='userManual/asset/', 
+    #                                 validators=[FileExtensionValidator(
+    #                                     allowed_extensions=['pdf','docx','ppt'])],
+    #                                 null=True,blank=True)
+    orderStatus = models.BooleanField(default=True)
     vendor = models.CharField(max_length=100,blank=True,null=True)
-    description = models.TextField()
-    iam = models.BooleanField(default=False) #is automatic schedule manteined
+    # description = models.TextField()
+    iam = models.BooleanField(default=True) #is automatic schedule manteined
     maintenanceNumber = models.IntegerField(default=0)
     unit = models.IntegerField(default=0)
-    
+    lastMaintained = models.DateField(null=True, blank=True)
+
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_assets")
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_asset")
     createdAt = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,217 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-8">
+        <h1>Spare tools</h1>
+      </div>  
+      <div class="col-sm-2">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-spareTool">Add spare-tool</a>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Assets</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Serial number</th>
+          <th>Spare name</th>
+          <th>Department(s)</th>
+          <th>Quantity</th>
+          <th>updatedBy</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for spare in spareToolInstanceData %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ spare.spareSerialNo }}</td>
+          <td>{{ spare.spareName }}</td>
+          <td>{{ spare.department.name }}</td>
+          <td>{{ spare.unit }}</td>
+          <td>{{ spare.updatedBy.email }}</td> 
+          <td>
+            {% if spare.status %}
+            <a class="fa fa-check btn-sm btn-success" title="block" href="{% url 'spareStatus' %}?spStatus_id={{spare.id}}"></a>
+            {% else %}
+            <a class="fas fa-unlock btn-sm btn-danger" title="unblock" href="{% url 'spareStatus' %}?spStatus_id={{spare.id}}"></a>
+            {% endif %}
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" data-toggle="modal" data-target="#modal-updateSp{{spare.id}}"></a>
+          </td>
+        </tr>
+        {% endfor %}
+  
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>#</th>
+          <th>Serial number</th>
+          <th>Spare name</th>
+          <th>Department(s)</th>
+          <th>Quantity</th>
+          <th>updatedBy</th>
+          <th>Actions</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+<div class="modal fade" id="modal-spareTool">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Create a spare tool</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'createSpareTool_url' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                    <select name="DepartmentId" class="form-control" required>
+                      {% for department in departmentInstance %}
+                      <option value="{{department.id}}">{{ department.name }}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-building"></span>
+                      </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="SpareSerialNo" class="form-control" placeholder="Spare serial number" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-align-justify"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="SpareName" class="form-control" placeholder="spare name" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-align-justify"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="number" name="Unit" class="form-control" placeholder="9" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-align-justify"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  {% for spare in spareToolInstanceData %}
+  <div class="modal fade" id="modal-updateSp{{spare.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Update user.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'updateSpTool_url' spare.id %}" method="POST">
+            {% csrf_token %}
+
+            <div class="input-group mb-3">
+                <select name="DepartmentId" class="form-control" required>
+                  {% for department in departmentInstance %}
+                  {% if spare.department == department %}
+                  <option value="{{department.id}}" selected>{{ department.name }}</option>
+                  {% else %}
+                  <option value="{{department.id}}">{{ department.name }}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-building"></span>
+                  </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" name="SpareSerialNo" class="form-control" value="{{ spare.spareSerialNo }}" placeholder="Spare serial number" required>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-align-justify"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" name="SpareName" class="form-control" value="{{ spare.spareName }}" placeholder="spare name" required>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-align-justify"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="number" name="Unit" class="form-control" value="{{ spare.unit }}" placeholder="9" required>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-align-justify"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-outline-light">Save changes</button>
+              </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+{% endblock content %}

@@ -1,17 +1,196 @@
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
-from asset.models import Station,Office,CategoryTwo
+from asset.models import Station,Office,CategoryTwo,SpareTool,Asset
 from inventory.models import CategoryOne,TradesSetting
 from uaa.models import Department
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 # Create your views here.
-def AssetManageView(request):
+def SpareToolView(request):
+    departmentInstance = Department.objects.all()
+    spareToolInstance = SpareTool.objects.all()
     
-    context = {}
-    return render(request, '', context)
+    context = {'departmentInstance':departmentInstance, 'spareToolInstanceData':spareToolInstance}
+    return render(request, 'assets/spareTool.html', context)
 
-# system settings function views.
+def CreateSpareToolView(request):
+    try:
+        if request.method == "POST":
+            DepartmentId = request.POST.get('DepartmentId')
+            SpareSerialNo = request.POST.get('SpareSerialNo')
+            SpareName = request.POST.get('SpareName')
+            Unit = request.POST.get('Unit')
+            
+            createspInstance = SpareTool.objects.create(
+                department_id=DepartmentId,
+                spareSerialNo=SpareSerialNo,
+                spareName=SpareName,
+                unit=Unit,
+                createdBy_id=request.user.id,
+                updatedBy_id=request.user.id
+            )
+            createspInstance.save()
+            messages.success(request, 'spare-tool created successfully')
+            return redirect('spareTool_url')
+        
+    except:
+        return render(None, 'uaa/error500.html')
+
+def SpareToolStatusView(request):
+    try:
+        spStatusInstance = get_object_or_404(SpareTool,pk=request.GET.get('spStatus_id'))
+        spStatusInstance.status = not spStatusInstance.status
+        spStatusInstance.save()
+        messages.info(request, 'status successfully changed')
+        return redirect('spareTool_url')
+
+    except:
+        return render(None, 'uaa/error500.html')
+
+def UpdateSpareToolView(request, pk):
+    try:
+        updatespInstance = SpareTool.objects.filter(id=pk)
+        
+        if request.method == "POST":
+            DepartmentId = request.POST.get('DepartmentId')
+            SpareSerialNo = request.POST.get('SpareSerialNo')
+            SpareName = request.POST.get('SpareName')
+            Unit = request.POST.get('Unit')
+            
+            SpareTool.objects.filter(id=pk).update(
+                department_id=DepartmentId,
+                spareSerialNo=SpareSerialNo,
+                spareName=SpareName,
+                unit=Unit,
+                updatedBy_id=request.user.id
+            )
+            messages.info(request, 'spare tools successfully updated')
+            return redirect('spareTool_url')
+    
+    except:
+        return render(None, 'uaa/error500.html')
+
+def AssetManageView(request):
+    dpi = Department.objects.all()
+    ofci = Office.objects.all()
+    ctti = CategoryTwo.objects.all()
+    spti = SpareTool.objects.all()  
+    
+    assetInstance = Asset.objects.all()
+    
+    context = {"departmentObjectData":dpi, "officeInstanceData":ofci, "catTwoInstanceData":ctti, "spToolInstance":spti, "assetInstanceData":assetInstance}
+    return render(request, 'assets/assetManage.html', context)
+
+def CreateAssetView(request):
+    try:
+        if request.method == "POST":
+            DepartmentId = request.POST.get('DepartmentId')
+            OfficeId = request.POST.get('OfficeId')
+            catTwoId = request.POST.get('catTwoId')
+            SpareId = request.POST.get('SpareId')
+            SerialNo = request.POST.get('SerialNo')
+            assetName = request.POST.get('assetName')
+            SiteName = request.POST.get('SiteName')
+            Vendor = request.POST.get('Vendor')
+            TotalPrice = request.POST.get('TotalPrice')
+            LifeSpan = request.POST.get('LifeSpan')
+            Mtl = request.POST.get('Mtl')
+            Lmd = request.POST.get('Lmd')
+            Unit = request.POST.get('Unit')
+            
+            Asset.objects.create(
+                department_id=DepartmentId,
+                office_id=OfficeId,
+                categoryTwo_id=catTwoId,
+                spareTool_id=SpareId,
+                serialNumber=SerialNo,
+                assetName=assetName,
+                totalPrice=TotalPrice,
+                lifeSpan=LifeSpan,
+                mtl=Mtl,
+                siteName=SiteName,
+                vendor=Vendor,
+                unit=Unit,
+                lastMaintained=Lmd,
+                createdBy_id=request.user.id,
+                updatedBy_id=request.user.id
+            )
+            messages.success(request, 'asset created successfully')
+            return redirect('AssetManage_url')
+    
+    except:
+        return render(None, 'uaa/error500.html')
+    
+
+def UpdateAssetView(request, pk):
+    try:
+        updateAssetInstance = Asset.objects.filter(id=pk)
+        if request.method == "POST":
+            DepartmentId = request.POST.get('DepartmentId')
+            OfficeId = request.POST.get('OfficeId')
+            catTwoId = request.POST.get('catTwoId')
+            SpareId = request.POST.get('SpareId')
+            SerialNo = request.POST.get('SerialNo')
+            assetName = request.POST.get('assetName')
+            SiteName = request.POST.get('SiteName')
+            Vendor = request.POST.get('Vendor')
+            TotalPrice = request.POST.get('TotalPrice')
+            LifeSpan = request.POST.get('LifeSpan')
+            Mtl = request.POST.get('Mtl')
+            Lmd = request.POST.get('Lmd')
+            Unit = request.POST.get('Unit')
+            
+            Asset.objects.filter(id=pk).update(
+                department_id=DepartmentId,
+                office_id=OfficeId,
+                categoryTwo_id=catTwoId,
+                spareTool_id=SpareId,
+                serialNumber=SerialNo,
+                assetName=assetName,
+                totalPrice=TotalPrice,
+                lifeSpan=LifeSpan,
+                mtl=Mtl,
+                siteName=SiteName,
+                vendor=Vendor,
+                unit=Unit,
+                lastMaintained=Lmd,
+                updatedBy_id=request.user.id
+            )
+            messages.success(request, 'asset updated successfully')
+            return redirect('AssetManage_url')
+    
+    except:
+        return render(None, 'uaa/error500.html')
+    
+def IsAutoMaintainedView(request):
+    
+    try:
+        assetAutoInstance = get_object_or_404(Asset,pk=request.GET.get('isAuto_id'))
+            
+        assetAutoInstance.iam = not assetAutoInstance.iam
+        assetAutoInstance.save()
+        messages.info(request, 'auto maintainance status changed')
+        return redirect('AssetManage_url')
+
+    except:
+        return render(None, 'uaa/error500.html')
+    
+
+def AssetStatusView(request):
+    
+    try:
+        assetStatusInstance = get_object_or_404(Asset,pk=request.GET.get('assetStts_id'))
+            
+        assetStatusInstance.status = not assetStatusInstance.status
+        assetStatusInstance.save()
+        messages.info(request, 'status changed successfully')
+        return redirect('AssetManage_url')
+
+    except:
+        return render(None, 'uaa/error500.html')
+    
+
+# system settings function views.  
 def DepartmentView(request):
     try:
         departmentInstance = Department.objects.all()
