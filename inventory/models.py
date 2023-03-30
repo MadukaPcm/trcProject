@@ -4,6 +4,7 @@ from asset.models import SpareTool
 from uaa.models import Department
 from django.core.validators import FileExtensionValidator
 import uuid
+from datetime import date,timedelta
 
 class CategoryOne(models.Model): #eg- office,electric station,rolling stock,spare part, recommended [spare pard and assets]
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
@@ -48,6 +49,10 @@ class Inventory(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
     status= models.BooleanField(default=True)
+    
+    @property
+    def IsDueForM(self):
+        return (date.today()-self.lastMaintained).days >= (self.mtl-3)
     
     class Meta:
         ordering =['-createdAt','-updatedAt']

@@ -9,8 +9,9 @@ urlpatterns = [
     path('RecoverPassword/<str:email>', views.RecoverPasswordView, name='RecoverPassword_url'),
     
     path('dashboard/', views.DashboardView, name='dashboard_url'),
-    path('profile/', views.ProfileView, name='profile_url'),
+    path('profile/', views.ProfileView, name='profile_url'),  
     path('updateProfile', views.UpdateProfileView, name='updateProfile_url'),
+    path('updateProfilePic/', views.UpdateProfilePicView, name='updateProfilePic_url'),
     
     path('success/', views.SuccessView, name='success_url'),
     path('tokensend/', views.TokenSendView, name='tokensend_url'),

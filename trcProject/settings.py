@@ -42,7 +42,6 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 # Application definition
 LOGOUT_REDIRECT_URL = '/login_url/'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -59,6 +58,10 @@ INSTALLED_APPS = [
     'maintenanceReport.apps.MaintenancereportConfig',
     'workOrder.apps.WorkorderConfig',
     'asset.apps.AssetConfig',
+    
+    # ...   redis...config--
+    # 'django_celery_beat',
+    # 'django_celery_results',
 ]
 
 AUTH_USER_MODEL = 'uaa.User'
@@ -181,3 +184,20 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+#redis cinfig---
+
+# from celery.schedules import crontab
+
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+
+# CELERY_BEAT_SCHEDULE = {
+#     'send-reminder-email': {
+#         'task': 'inventory.tasks.send_reminder_email',   #task': 'myapp.tasks.send_reminder_email',
+#         'schedule': crontab(hour=8, minute=0),  # Run every day at 8:00am
+#     },
+# }

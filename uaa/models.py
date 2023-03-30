@@ -10,6 +10,10 @@ import uuid
 
 class User(AbstractUser):
     email = models.EmailField(_('email address'), unique = True)
+    profileImage = models.FileField(upload_to='profileImages/', 
+                                    validators=[FileExtensionValidator(
+                                        allowed_extensions=['png','jpg','jpeg'])], 
+                                    default='profileImages/profile_default.png',null=True,blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username',]
@@ -51,10 +55,6 @@ class Profile(models.Model):
     dob = models.DateField(null=True,blank=True)
     address = models.CharField(max_length=50,null=True,blank=True)
     gender = models.CharField(max_length=6,blank=True,null=True)
-    profileImage = models.FileField(upload_to='profileImages/', 
-                                    validators=[FileExtensionValidator(
-                                        allowed_extensions=['png','jpg','jpeg'])], 
-                                    default='profileImages/profile_default.png',null=True,blank=True)
     
     createdBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_profile",blank=True,null=True)
     updatedBy = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name="user_profil",blank=True,null=True)

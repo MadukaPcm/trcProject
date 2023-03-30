@@ -6,6 +6,14 @@ from django.contrib import messages
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from django.http import HttpResponseRedirect
 
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+
+#schedule library....
+import schedule
+import time
+
 def InventoryView(request):
     dpi = Department.objects.all()
     ofci = Office.objects.all()
@@ -32,6 +40,10 @@ def CreateInventoryView(request):
             Mtl = request.POST.get('Mtl')
             Lmd = request.POST.get('Lmd')
             Unit = request.POST.get('Unit')
+            tag_ids = request.POST.getlist('tags[]')
+            tags = Department.objects.filter(id__in=tag_ids)
+            
+            #multiple select....
             
             Inventory.objects.create(
                 department_id=DepartmentId,
@@ -49,6 +61,8 @@ def CreateInventoryView(request):
                 createdBy_id=request.user.id,
                 updatedBy_id=request.user.id
             )
+            print(tags)
+            # Inventory.tags.set(tags)
             messages.success(request, 'Equipment created successfully')
             return redirect('Inventory_url')
         
@@ -122,3 +136,32 @@ def InventoryStatusView(request):
 
     except:
         return render(None, 'uaa/error500.html')
+    
+# def AutoCallView(request):
+    
+#     print("maduka")
+    
+#     return HttpResponse()
+    
+def AutoCallView(request):
+    
+    try:
+        subject = 'Your accounts needs to be verified'
+        message = f'Hi bro frank'
+        # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ['madukapcm@gmail.com',]
+        send_mail(subject, message,email_from,recipient_list)
+    except Exception as e:
+        print(e)
+        
+    return HttpResponse(status=204)
+
+
+def EMaduka():
+    print("maduka pcm the coder")
+    
+schedule.every(0.5).minutes.do(EMaduka)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)

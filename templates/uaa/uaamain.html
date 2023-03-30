@@ -41,8 +41,13 @@
 </div>
 <!-- /.login-box -->
 
+
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+
+<!-- autoCall js file link-->
+{% comment %} <script src="{% static 'trcProject/autocall.js' %}"></script> {% endcomment %}
+
 <!-- Bootstrap 4 -->
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
@@ -56,6 +61,16 @@
     }
   }, 3000)
 </script>
+
+
+{% comment %} <script>
+  setInterval(function() {
+      fetch('/autCallf/')
+          .then(response => response.text())
+          .then(data => console.log(data))
+          .catch(error => console.error(error))
+  }, 2000); // 120000 milliseconds = 2 minutes
+</script> {% endcomment %}
 
 </body>
 </html>

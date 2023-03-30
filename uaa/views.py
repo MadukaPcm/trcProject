@@ -109,8 +109,8 @@ def SendEmailRegister(email, token):
     
     try:
         subject = 'Your accounts needs to be verified'
-        message = f'Hi verify your account 3.91.71.75/verify/{token}'
-        # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
+        # message = f'Hi verify your account 3.91.71.75/verify/{token}'
+        message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email]
         send_mail(subject, message,email_from,recipient_list)
@@ -166,8 +166,8 @@ def ResetPasswordView(request):
 def SendEmailPasswordResetView(email):
     try:
         subject = 'password reset, click the link below'
-        message = f'Hi verify your account 3.91.71.75/RecoverPassword/{email}'
-        # message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}' #for local host
+        # message = f'Hi verify your account 3.91.71.75/RecoverPassword/{email}'
+        message = f'Hi verify your account 127.0.0.1:8000/RecoverPassword/{email}' #for local host
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email]
         send_mail(subject, message,email_from,recipient_list)
@@ -267,6 +267,23 @@ def UpdateProfileView(request):
             
             messages.info(request,'Your Profile Is Updated')
             return redirect('/profile')
+    
+    except:
+        return render(None, 'uaa/error500.html')
+    
+def UpdateProfilePicView(request):
+    
+    try:
+        updateProfilePic = User.objects.get(id=request.user.id)
+        if request.method == 'POST' and 'profilePic' in request.FILES:
+            profile = request.FILES
+            profileImage = profile['profilePic']
+            
+            updateProfilePic.profileImage = profileImage
+            updateProfilePic.save()
+            
+            messages.info(request,'Your Profile picture Is Updated')
+            return redirect('profile_url')
     
     except:
         return render(None, 'uaa/error500.html')
