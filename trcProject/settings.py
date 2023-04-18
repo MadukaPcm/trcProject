@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'maintenanceReport.apps.MaintenancereportConfig',
     'workOrder.apps.WorkorderConfig',
     'asset.apps.AssetConfig',
+    'testapp.apps.TestappConfig',
     
     # ...   redis...config--
     # 'django_celery_beat',

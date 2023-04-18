@@ -130,6 +130,26 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+               <li class="nav-item">
+                <a href="#" class="nav-link" id="hovCol">
+                  <i class="nav-icon fas fa-file-pdf"></i>
+                  <p>
+                    testing
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item" id="hovColor">
+                    <a href="{% url 'test_url' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon" style="color:#ff9900
+                      ;"></i>
+                      <p style="color:white;">test page..</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
           <li class="nav-item menu-open">
             <a href="{% url 'profile_url' %}" class="nav-link" style="background:#264d73;">
               <i class="nav-icon fas fa-user" style="color:white;"></i>
@@ -171,7 +191,7 @@
             <a href="#" class="nav-link" id="hovCol">
               <i class="nav-icon fas fa-store"></i>
               <p>
-                Assets 
+                Inventory
                 <i class="fas fa-angle-left right"></i>  
               </p>
             </a>
@@ -191,14 +211,6 @@
                   <p style="color:white;">All Assets</p>
                 </a>
               </li>
-
-              <li class="nav-item" id="hovColor">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon" style="color:#ff9900
-                  ;"></i>
-                  <p style="color:white;">Asset management</p>
-                </a>
-              </li>
             </ul>
           </li>
 
@@ -206,7 +218,7 @@
             <a href="#" class="nav-link" id="hovCol">
               <i class="nav-icon fas fa-store"></i>
               <p>
-                Inventory 
+                Assets 
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -215,7 +227,7 @@
                 <a href="{% url 'Inventory_url' %}" class="nav-link">
                   <i class="far fa-circle nav-icon" style="color:#ff9900
                   ;"></i>
-                  <p style="color:white;">Manage Inventory</p>
+                  <p style="color:white;">Manage Asset</p>
                 </a>
               </li>
 

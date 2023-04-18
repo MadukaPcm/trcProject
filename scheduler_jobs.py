@@ -12,7 +12,8 @@ def MyFunc():
         # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['madukapcm@gmail.com',]
-        send_mail(subject, message,email_from,recipient_list)
+        # send_mail(subject, message,email_from,recipient_list)
+        print("BroFrank")
     except Exception as e:
         print(e)
         
@@ -26,7 +27,8 @@ def MyFuncView():
         # message = f'Hi verify your account 127.0.0.1:8000/verify/{token}' #for localhost use.
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['madukapcm@gmail.com',]
-        send_mail(subject, message,email_from,recipient_list)
+        # send_mail(subject, message,email_from,recipient_list)
+        print("Madukapcm")
     except Exception as e:
         print(e)
         
