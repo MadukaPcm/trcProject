@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from datetime import date,timedelta
+from uaa.models import User
 
 # PREVENTIVE MAINTENANCE MODELS............
 class LocomotiveType(models.Model): #(Are two MAin line and shutting L)
@@ -47,6 +48,9 @@ class ServiceType(models.Model): #(They are 3 electrical, mech and mixer.)
     
     class Meta:
         ordering =['-createdAt','-updatedAt']
+    
+    
+    
     
     def __str__(self):
         return str(self.name)
@@ -122,6 +126,50 @@ class Workshop(models.Model):
     
     def __str__(self):
         return str(self.workshopName)
+    
+#Preventive maintenance schedule report.........
+class LocomotiveMaintenance(models.Model):
+    id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    reportUniqueCode = models.CharField(max_length=100,null=True,blank=True,unique=True)
+    locomotive = models.ForeignKey(Locomotive, related_name='locomotive_report', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
+    classService = models.ForeignKey(ClassService, related_name='classService_report', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
+    workshop = models.ForeignKey(Workshop, related_name='WorkshopRreport', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
+    ex_maintenace_date = models.DateField()
+    actual_maintenance_date = models.DateField()
+    isConfirmed = models.BooleanField(default=False)
+    confirmedBy = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_deputy',null=True,blank=True)
+    
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+    status= models.BooleanField(default=True)
+    
+    class Meta:
+        ordering =['-createdAt','-updatedAt']
+    
+    def __str__(self):
+        return str(self.reportUniqueCode)
+    
+class ServiceSheetReport(models.Model): #send email notification engineer for specific workshop. getting list of deputies
+    id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
+    reportUniqueCode = models.CharField(max_length=100,null=True,blank=True)
+    serviceSheet = models.ForeignKey(ServiceSheet, related_name='servicesReport', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
+    isChecked = models.BooleanField(default=False)
+    description = models.CharField(max_length=255,blank=True,null=True)
+    checkedBy = models.ForeignKey(User, related_name='user_checker',on_delete=models.CASCADE,null=True,blank=True) #request.user
+    
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+    status= models.BooleanField(default=True)
+    
+    class Meta:
+        ordering =['-createdAt','-updatedAt']
+    
+    def __str__(self):
+        return str(self.id)
     
 
 #BREAK DOWN MAINTENANCE MODEL PART ......
