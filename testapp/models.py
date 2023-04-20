@@ -79,7 +79,7 @@ class ServiceSheet(models.Model):
     service_class = models.ForeignKey(ClassService, related_name='servicecS_class', 
                                    on_delete=models.CASCADE, null=True, blank=True)
     task = models.CharField(max_length=100,blank=True,null=True)
-    taskDescription = models.TextField(max_length=100,blank=True,null=True)
+    taskDescription = models.TextField()
     timeSTD = models.CharField(max_length=100,blank=True,null=True)
     grade = models.CharField(max_length=20,blank=True,null=False)
     
@@ -97,6 +97,8 @@ class Locomotive(models.Model):
     classL = models.ForeignKey(LocomotiveClass, related_name='locom_class', 
                                    on_delete=models.CASCADE, null=True, blank=True)
     locomotiveNumber = models.CharField(max_length=100,blank=True,null=True)
+    maintenanceNumber = models.IntegerField(default=0)
+    isTobescheduled = models.BooleanField(default=True)
     goingRootNo = models.IntegerField(default=0)
     returningRootNo = models.IntegerField(default=0)
     
@@ -158,7 +160,7 @@ class ServiceSheetReport(models.Model): #send email notification engineer for sp
     serviceSheet = models.ForeignKey(ServiceSheet, related_name='servicesReport', 
                                    on_delete=models.CASCADE, null=True, blank=True)
     isChecked = models.BooleanField(default=False)
-    description = models.CharField(max_length=255,blank=True,null=True)
+    description = models.TextField()
     checkedBy = models.ForeignKey(User, related_name='user_checker',on_delete=models.CASCADE,null=True,blank=True) #request.user
     
     createdAt = models.DateTimeField(auto_now_add=True)
@@ -169,7 +171,7 @@ class ServiceSheetReport(models.Model): #send email notification engineer for sp
         ordering =['-createdAt','-updatedAt']
     
     def __str__(self):
-        return str(self.id)
+        return str(self.id)    
     
 
 #BREAK DOWN MAINTENANCE MODEL PART ......
